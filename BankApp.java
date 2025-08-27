@@ -1,8 +1,7 @@
-
 import java.awt.*;
 import java.awt.event.*;
 import java.sql.*;
-import java.util.*;
+
 public class BankApp extends Frame implements ActionListener {
     TextField nameField, balanceField, accField, amountField;
     Button createBtn, depositBtn, withdrawBtn, checkBtn;
@@ -132,7 +131,7 @@ public class BankApp extends Frame implements ActionListener {
                 ps.setDouble(2, bal);
                 ps.executeUpdate();
 
-                output.append("✅ Account created for: " + name + "\n");
+                output.append("Account created for: " + name + "\n");
                 clearInputs();
 
             } else if (clicked == depositBtn) {
@@ -146,8 +145,8 @@ public class BankApp extends Frame implements ActionListener {
                 int rows = ps.executeUpdate();
 
                 output.append(rows > 0
-                        ? "✅ ₹" + amt + " deposited.\n"
-                        : "❌ Account not found.\n");
+                        ? " \u20B9" + amt + " deposited.\n"
+                        : " Account not found.\n");
                 clearInputs();
 
             } else if (clicked == withdrawBtn) {
@@ -167,12 +166,12 @@ public class BankApp extends Frame implements ActionListener {
                         ps.setDouble(1, amt);
                         ps.setInt(2, acc);
                         ps.executeUpdate();
-                        output.append("✅ ₹" + amt + " withdrawn.\n");
+                        output.append("\u20B9" + amt + " withdrawn.\n");
                     } else {
-                        output.append("❌ Insufficient balance.\n");
+                        output.append(" Insufficient balance.\n");
                     }
                 } else {
-                    output.append("❌ Account not found.\n");
+                    output.append(" Account not found.\n");
                 }
                 clearInputs();
 
@@ -185,18 +184,18 @@ public class BankApp extends Frame implements ActionListener {
                 ResultSet rs = ps.executeQuery();
 
                 if (rs.next()) {
-                    output.append("\n📄 Account Info:\n");
+                    output.append("\n Account Info:\n");
                     output.append("Account No: " + rs.getInt("acc_no") + "\n");
                     output.append("Name      : " + rs.getString("name") + "\n");
-                    output.append("Balance   : ₹" + rs.getDouble("balance") + "\n");
+                    output.append("Balance   : \u20B9" + rs.getDouble("balance") + "\n");
                 } else {
-                    output.append("❌ Account not found.\n");
+                    output.append(" Account not found.\n");
                 }
                 clearInputs();
             }
 
         } catch (Exception ex) {
-            output.append("⚠️ Error: " + ex.getMessage() + "\n");
+            output.append(" Error: " + ex.getMessage() + "\n");
         }
 
         lastActionButton = clicked;

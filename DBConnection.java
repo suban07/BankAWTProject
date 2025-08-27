@@ -1,11 +1,22 @@
-import java.sql.*; 
-public class DBConnection {
-    public static Connection getConnection() throws Exception {
-        String url = "jdbc:mysql://localhost:3306/bankdb";
-        String user = "abdulsuban";          // Change to your MySQL username
-        String password = "Subbu@2907";  // Change to your MySQL password
+import java.sql.Connection;
+import java.sql.DriverManager;
 
-        Class.forName("com.mysql.cj.jdbc.Driver");
-        return DriverManager.getConnection(url, user, password);
+public class DBConnection {
+    public static Connection getConnection() {
+        Connection con = null;
+        try {
+            // Load MySQL Driver
+            Class.forName("com.mysql.cj.jdbc.Driver");
+
+            // Create connection
+            con = DriverManager.getConnection(
+                    "jdbc:mysql://localhost:3306/bankdb", // replace with your DB
+                    "abdulsuban", // your MySQL user
+                    "Subbu@2907" // your MySQL password
+            );
+        } catch (Exception e) {
+            e.printStackTrace();
+        }
+        return con;
     }
 }
